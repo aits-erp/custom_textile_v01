@@ -1,0 +1,164 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:pretreatment_process_rule_name",
+ "creation": "2023-09-12 23:17:46.193131",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "pretreatment_process_rule_name",
+  "filter_criteria_section",
+  "fabric_material",
+  "column_break_fze2w",
+  "fabric_type",
+  "process_details_section",
+  "singeing_item",
+  "singeing_item_name",
+  "column_break_sioio",
+  "desizing_item",
+  "desizing_item_name",
+  "desizing_item_unset",
+  "column_break_8qvrk",
+  "bleaching_item",
+  "bleaching_item_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "pretreatment_process_rule_name",
+   "fieldtype": "Data",
+   "label": "Pretreatment Process Rule Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "filter_criteria_section",
+   "fieldtype": "Section Break",
+   "label": "Filter Criteria"
+  },
+  {
+   "fieldname": "fabric_material",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Fabric Material",
+   "options": "Fabric Material"
+  },
+  {
+   "fieldname": "column_break_fze2w",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fabric_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Fabric Type",
+   "options": "Fabric Type"
+  },
+  {
+   "fieldname": "process_details_section",
+   "fieldtype": "Section Break",
+   "label": "Process Details"
+  },
+  {
+   "fieldname": "singeing_item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Singeing Item",
+   "options": "Item"
+  },
+  {
+   "depends_on": "eval:doc.singeing_item && doc.singeing_item_name != doc.singeing_item",
+   "fetch_from": "singeing_item.item_name",
+   "fieldname": "singeing_item_name",
+   "fieldtype": "Data",
+   "label": "Singeing Item Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_sioio",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:!doc.desizing_item_unset",
+   "fieldname": "desizing_item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Desizing Item",
+   "options": "Item"
+  },
+  {
+   "depends_on": "eval:!doc.desizing_item_unset && doc.desizing_item && doc.desizing_item_name != doc.desizing_item",
+   "fetch_from": "desizing_item.item_name",
+   "fieldname": "desizing_item_name",
+   "fieldtype": "Data",
+   "label": "Desizing Item Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_8qvrk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bleaching_item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Bleaching Item",
+   "options": "Item"
+  },
+  {
+   "depends_on": "eval:doc.bleaching_item && doc.bleaching_item_name != doc.bleaching_item",
+   "fetch_from": "bleaching_item.item_name",
+   "fieldname": "bleaching_item_name",
+   "fieldtype": "Data",
+   "label": "Bleaching Item Name",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "desizing_item_unset",
+   "fieldtype": "Check",
+   "label": "Desizing Not Required"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-03-18 10:38:56.756166",
+ "modified_by": "Administrator",
+ "module": "Fabric Pretreatment",
+ "name": "Pretreatment Process Rule",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Pretreatment Sales User",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

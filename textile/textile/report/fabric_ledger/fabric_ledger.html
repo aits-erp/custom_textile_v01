@@ -1,0 +1,139 @@
+<style>
+	@media screen {
+		.print-format {
+			padding: 8mm;
+		}
+	}
+
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+
+	h5 {
+		margin-top: 0;
+	}
+
+	.print-format td, .print-format th {
+		vertical-align: top !important;
+		padding: 1px 6px !important;
+	}
+
+	.field-label {
+		font-size: 14px;
+	}
+
+	.field-value {
+		font-size: 12px;
+		font-weight: 500 !important;
+	}
+</style>
+
+<div>
+	<h2 class="mt-0">{%= __("Fabric Ledger") %}</h2>
+
+	<hr style="margin-block: 10px !important;">
+
+	<!-- Header -->
+	<div class="clearfix">
+		<div class="pull-left" style="width: 50%;">
+			<h5>
+				<strong>{%= __("From Date") %}:</strong>
+				{%= frappe.datetime.str_to_user(filters.from_date) %}
+			</h5>
+
+			<h5>
+				<strong>{%= __("To Date") %}:</strong>
+				{%= frappe.datetime.str_to_user(filters.to_date) %}
+			</h5>
+		</div>
+
+		<div class="pull-left" style="width: 50%;">
+			{% if filters.customer %}
+				<h5>
+					<strong>{%= __("Customer") %}:</strong>
+					{%= filters.customer %}
+				</h5>
+			{% endif %}
+
+			{% if filters.item_name %}
+				<h5>
+					<strong>{%= __("Fabric") %}:</strong>
+					{%= filters.item_name %}
+				</h5>
+			{% endif %}
+		</div>
+	</div>
+
+	<hr style="margin-top: 8px !important; margin-bottom: 0 !important;">
+</div>
+
+<!-- Items Table -->
+<table class="table table-bordered w-100">
+	<thead>
+		<tr>
+			<th class="field-label text-nowrap" style="width: 11%;">{%= __("Date") %}</th>
+
+			<th class="field-label text-nowrap" style="width: 15%">{%= __("Voucher") %}</th>
+
+			<th class="field-label">{%= __("Fabric") %}</th>
+
+			{% if !filters.customer %}
+				<th class="field-label">{%= __("Customer") %}</th>
+			{% endif %}
+
+			<th class="field-label" style="width: 7%;">{%= __("UOM") %}</th>
+
+			<th class="field-label text-right text-nowrap" style="width: 7%;">{%= __("In") %}</th>
+
+			<th class="field-label text-right text-nowrap" style="width: 7%;">{%= __("Out") %}</th>
+
+			<th class="field-label text-right text-nowrap" style="width: 10%;">{%= __("Balance") %}</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		{% for (let d of data) { %}
+			<tr>
+				<td class="field-value text-nowrap">
+					{%= d.posting_date ? frappe.datetime.str_to_user(d.posting_date) : "" %}
+				</td>
+
+				<td class="field-value text-nowrap">
+					<div>{%= d.entry_type %}</div>
+					<div>{%= d.document_no %}</div>
+				</td>
+
+				<td class="field-value">
+					<div>{%= d.fabric_item_name %}</div>
+					{% if d.is_closing && flt(d.packed_qty_after_transaction, 2) %}
+						<div>Packed Qty: {%= format_number(d.packed_qty_after_transaction, null, 2) %}</div>
+					{% endif %}
+				</td>
+
+				{% if !filters.customer %}
+					<td class="field-value">{%= d.party_name %}</td>
+				{% endif %}
+
+				<td class="field-value">{%= d.uom %}</td>
+
+				<td class="field-value text-right text-nowrap">
+					{%= d.in_qty ? format_number(d.in_qty, null, 2) : "" %}
+				</td>
+
+				<td class="field-value text-right text-nowrap">
+					{%= d.out_qty ? format_number(d.out_qty, null, 2) : "" %}
+				</td>
+
+				<td class="field-value text-right text-nowrap">
+					{%= d.qty_after_transaction != null ? format_number(d.qty_after_transaction, null, 2) : "" %}
+				</td>
+			</tr>
+		{% } %}
+	</tbody>
+</table>
+<p class="text-right text-muted">Printed On {%= frappe.datetime.str_to_user(frappe.datetime.get_datetime_as_string()) %}</p>

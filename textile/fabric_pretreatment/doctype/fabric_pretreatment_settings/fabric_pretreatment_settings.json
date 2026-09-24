@@ -1,0 +1,109 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-08-21 02:28:41.811718",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "default_package_type_for_ready_fabrics",
+  "column_break_5r6mx",
+  "singeing_mandatory",
+  "desizing_mandatory",
+  "stock_entry_type_section",
+  "stock_entry_type_for_fabric_transfer",
+  "stock_entry_type_for_pretreatment_production",
+  "column_break_r8ba8",
+  "stock_entry_type_for_fabric_rejection",
+  "column_break_n8lzz",
+  "stock_entry_type_for_operation_consumption"
+ ],
+ "fields": [
+  {
+   "fieldname": "default_package_type_for_ready_fabrics",
+   "fieldtype": "Link",
+   "label": "Default Package Type for Ready Fabrics",
+   "options": "Package Type"
+  },
+  {
+   "default": "0",
+   "fieldname": "singeing_mandatory",
+   "fieldtype": "Check",
+   "label": "Singeing Mandatory in Pretreatment Order"
+  },
+  {
+   "default": "0",
+   "fieldname": "desizing_mandatory",
+   "fieldtype": "Check",
+   "label": "Desizing Mandatory in Pretreatment Order"
+  },
+  {
+   "fieldname": "column_break_5r6mx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "stock_entry_type_section",
+   "fieldtype": "Section Break",
+   "label": "Stock Entry Type"
+  },
+  {
+   "fieldname": "stock_entry_type_for_fabric_transfer",
+   "fieldtype": "Link",
+   "label": "Stock Entry Type for Fabric Transfer",
+   "options": "Stock Entry Type"
+  },
+  {
+   "fieldname": "column_break_r8ba8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "stock_entry_type_for_operation_consumption",
+   "fieldtype": "Link",
+   "label": "Stock Entry Type for Operation Consumption",
+   "options": "Stock Entry Type"
+  },
+  {
+   "fieldname": "column_break_n8lzz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "stock_entry_type_for_fabric_rejection",
+   "fieldtype": "Link",
+   "label": "Stock Entry Type for Fabric Rejection",
+   "options": "Stock Entry Type"
+  },
+  {
+   "fieldname": "stock_entry_type_for_pretreatment_production",
+   "fieldtype": "Link",
+   "label": "Stock Entry Type for Pretreatment Production",
+   "options": "Stock Entry Type"
+  }
+ ],
+ "grid_page_length": 500,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-02-27 14:46:40.109139",
+ "modified_by": "Administrator",
+ "module": "Fabric Pretreatment",
+ "name": "Fabric Pretreatment Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,87 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:fabric_type",
+ "creation": "2023-02-08 17:19:58.165842",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "fabric_type",
+  "abbreviation"
+ ],
+ "fields": [
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "fabric_type",
+   "fieldtype": "Data",
+   "label": "Fabric Type",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "abbreviation",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Abbreviation"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "group": "Items",
+   "link_doctype": "Item",
+   "link_fieldname": "fabric_type"
+  }
+ ],
+ "modified": "2024-03-19 18:22:31.914570",
+ "modified_by": "Administrator",
+ "module": "Textile",
+ "name": "Fabric Type",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Item Manager",
+   "share": 1
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "Pretreatment Sales User"
+  },
+  {
+   "read": 1,
+   "report": 1,
+   "role": "Print Sales User"
+  },
+  {
+   "role": "All",
+   "select": 1
+  }
+ ],
+ "quick_entry": 1,
+ "search_fields": "abbreviation",
+ "sort_field": "idx",
+ "sort_order": "DESC",
+ "states": []
+}

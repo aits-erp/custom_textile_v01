@@ -1,0 +1,144 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-08-25 11:52:23.584034",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "default_item_group_for_printed_design_item",
+  "default_package_type_for_printed_fabrics",
+  "column_break_gfkuh",
+  "wastage_mandatory",
+  "coating_item_mandatory",
+  "softener_item_mandatory",
+  "sublimation_paper_item_mandatory",
+  "protection_paper_item_mandatory",
+  "stock_entry_type_section",
+  "stock_entry_type_for_print_production",
+  "stock_entry_type_for_fabric_transfer",
+  "column_break_x00kc",
+  "stock_entry_type_for_fabric_rejection",
+  "stock_entry_type_for_fabric_shrinkage",
+  "column_break_5kn2h",
+  "stock_entry_type_for_fabric_coating"
+ ],
+ "fields": [
+  {
+   "fieldname": "default_item_group_for_printed_design_item",
+   "fieldtype": "Link",
+   "label": "Item Group For Printed Design Items",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "default_package_type_for_printed_fabrics",
+   "fieldtype": "Link",
+   "label": "Default Package Type for Printed Fabrics",
+   "options": "Package Type"
+  },
+  {
+   "default": "0",
+   "fieldname": "wastage_mandatory",
+   "fieldtype": "Check",
+   "label": "Wastage Mandatory in Print Order"
+  },
+  {
+   "fieldname": "stock_entry_type_section",
+   "fieldtype": "Section Break",
+   "label": "Stock Entry Type"
+  },
+  {
+   "fieldname": "stock_entry_type_for_fabric_transfer",
+   "fieldtype": "Link",
+   "label": "Stock Entry Type for Fabric Transfer",
+   "options": "Stock Entry Type"
+  },
+  {
+   "fieldname": "column_break_x00kc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "stock_entry_type_for_print_production",
+   "fieldtype": "Link",
+   "label": "Stock Entry Type for Print Production",
+   "options": "Stock Entry Type"
+  },
+  {
+   "fieldname": "column_break_5kn2h",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "stock_entry_type_for_fabric_coating",
+   "fieldtype": "Link",
+   "label": "Stock Entry Type for Fabric Coating",
+   "options": "Stock Entry Type"
+  },
+  {
+   "fieldname": "stock_entry_type_for_fabric_shrinkage",
+   "fieldtype": "Link",
+   "label": "Stock Entry Type for Fabric Shrinkage",
+   "options": "Stock Entry Type"
+  },
+  {
+   "fieldname": "stock_entry_type_for_fabric_rejection",
+   "fieldtype": "Link",
+   "label": "Stock Entry Type for Fabric Rejection",
+   "options": "Stock Entry Type"
+  },
+  {
+   "fieldname": "column_break_gfkuh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "coating_item_mandatory",
+   "fieldtype": "Check",
+   "label": "Coating Mandatory in Print Order"
+  },
+  {
+   "default": "0",
+   "fieldname": "softener_item_mandatory",
+   "fieldtype": "Check",
+   "label": "Softener Mandatory in Print Order"
+  },
+  {
+   "default": "0",
+   "fieldname": "sublimation_paper_item_mandatory",
+   "fieldtype": "Check",
+   "label": "Sublimation Paper Mandatory in Print Order"
+  },
+  {
+   "default": "0",
+   "fieldname": "protection_paper_item_mandatory",
+   "fieldtype": "Check",
+   "label": "Protection Paper Mandatory in Print Order"
+  }
+ ],
+ "grid_page_length": 500,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-02-27 14:57:11.095055",
+ "modified_by": "Administrator",
+ "module": "Fabric Printing",
+ "name": "Fabric Printing Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

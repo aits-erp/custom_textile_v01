@@ -1,0 +1,169 @@
+# Copyright (c) 2023, ParaLogic and contributors
+# For license information, please see license.txt
+
+import frappe
+from frappe.model.document import Document
+from frappe import _, STANDARD_USERS
+from frappe.utils import cint, cstr, getdate, now_datetime, add_days, validate_email_address
+from textile.fabric_printing.report.fabric_printing_summary.fabric_printing_summary import FabricPrintingSummary
+from textile.utils import get_rotated_image
+from frappe.core.doctype.notification_count.notification_count import (
+	get_notification_last_scheduled,
+	set_notification_last_scheduled,
+)
+from urllib.parse import quote
+
+
+class TextileEmailDigest(Document):
+	def validate(self):
+		self.validate_mandatory()
+
+	def validate_mandatory(self):
+		if not cint(self.enabled):
+			return
+
+		if not cstr(self.recipient_list).strip():
+			frappe.throw(_("Recipient is mandatory"))
+		if not self.email_template:
+			frappe.throw(_("Email Template is mandatory"))
+
+		for email in [rec for rec in cstr(self.recipient_list).split() if rec]:
+			validate_email_address(email, True)
+
+	@frappe.whitelist()
+	def get_users(self):
+		user_list = frappe.db.sql("""
+			SELECT email, enabled FROM `tabUser`
+			WHERE name NOT IN ({standard_users})
+			and user_type != 'Website User'
+			order by enabled desc, email asc
+		""".format(
+			standard_users=", ".join(frappe.db.escape(user) for user in STANDARD_USERS)
+		), as_dict=1)
+
+		recipient_list = [rec for rec in cstr(self.recipient_list).split() if rec]
+
+		for d in user_list:
+			d["checked"] = d["email"] in recipient_list
+
+		return user_list
+
+	@frappe.whitelist()
+	def send(self, is_background=False):
+		if not self.email_template:
+			if not is_background:
+				frappe.throw(_("Please set Email Template first"))
+			return
+
+		recipients = self.get_recipients()
+		if not recipients:
+			if not is_background:
+				frappe.throw(_("No receipents to send to"))
+			return
+
+		context = self.get_context()
+
+		if is_background and self.do_not_send_if_no_transaction and not context.get("daily_totals", {}).get("has_transactions"):
+			return
+
+		email_template = frappe.get_cached_doc("Email Template", self.email_template)
+		formatted_template = email_template.get_formatted_email(context)
+
+		frappe.sendmail(
+			recipients=recipients,
+			subject=formatted_template['subject'],
+			message=formatted_template['message'],
+			reference_doctype=self.doctype,
+			reference_name=self.name,
+			now=not is_background,
+			with_container=self.with_container,
+			unsubscribe_message=_("Unsubscribe"),
+			notification_type="Textile Email Digest",
+		)
+
+	@frappe.whitelist()
+	def get_preview_html(self, date=None):
+		if not self.email_template:
+			frappe.throw(_("Please set Email Template first"))
+
+		context = self.get_context(date=date, for_preview=True)
+		email_template = frappe.get_cached_doc("Email Template", self.email_template)
+		formatted_template = email_template.get_formatted_email(context)
+
+		return formatted_template
+
+	def get_context(self, date=None, for_preview=False):
+		context = frappe._dict({})
+
+		if not date:
+			date = add_days(getdate(), -1)
+
+		date = getdate(date)
+
+		filters = {
+			"from_date": date.replace(day=1),
+			"to_date": date,
+		}
+		context.update(filters)
+
+		context["monthly_by_material"], context["monthly_totals"] = FabricPrintingSummary(filters).get_data_for_digest()
+
+		filters["from_date"] = filters["to_date"]
+		context["daily_by_material"], context["daily_totals"] = FabricPrintingSummary(filters).get_data_for_digest()
+
+		if context.daily_totals.most_produced_item and context.daily_totals.most_produced_item_image:
+			if for_preview:
+				context.daily_totals["most_produced_item_image_rotated"] = "/api/method/textile.utils.get_rotated_image?file={0}".format(
+					quote(context.daily_totals.most_produced_item_image)
+				)
+				context.daily_totals["most_produced_item_image_src"] = f"src='{context.daily_totals.most_produced_item_image_rotated}'"
+			else:
+				context.daily_totals["most_produced_item_image_rotated"] = get_rotated_image(context.daily_totals.most_produced_item_image, get_path=True)
+				context.daily_totals["most_produced_item_image_src"] = f"embed='{context.daily_totals.most_produced_item_image_rotated}'"
+
+		return context
+
+	def get_recipients(self):
+		recipients = [rec.strip() for rec in cstr(self.recipient_list).split() if rec]
+		if not recipients:
+			return []
+
+		valid_users = frappe.db.sql_list("""
+			select email
+			from `tabUser`
+			where enabled = 1 and email in %s
+		""", [recipients])
+
+		return valid_users
+
+
+def send_textile_email_digest():
+	now_dt = now_datetime()
+	digest_doc = frappe.get_single("Textile Email Digest")
+
+	if not cint(digest_doc.enabled):
+		return
+	if not digest_doc.email_template:
+		return
+
+	if cint(digest_doc.send_at_hour_of_the_day) > now_dt.hour:
+		return
+
+	last_scheduled = get_notification_last_scheduled(
+		"Textile Email Digest",
+		"Textile Email Digest",
+		"Textile Email Digest",
+		"Email",
+	)
+	if last_scheduled and getdate(last_scheduled) >= now_dt.date():
+		return
+
+	digest_doc.send(is_background=True)
+
+	set_notification_last_scheduled(
+		"Textile Email Digest",
+		"Textile Email Digest",
+		"Textile Email Digest",
+		"Email",
+		now_dt=now_dt,
+	)

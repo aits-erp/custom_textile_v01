@@ -1,0 +1,82 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:printer_name",
+ "creation": "2023-06-21 16:12:07.100308",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "printer_name",
+  "section_break_orfh",
+  "process_items"
+ ],
+ "fields": [
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "printer_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Printer Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "section_break_orfh",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "process_items",
+   "fieldtype": "Table",
+   "label": "Allowed Processes",
+   "options": "Fabric Printer Process"
+  }
+ ],
+ "grid_page_length": 500,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-11-13 12:26:03.800722",
+ "modified_by": "Administrator",
+ "module": "Fabric Printing",
+ "name": "Fabric Printer",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Print Production User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Print Sales User",
+   "share": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "name",
+ "sort_order": "ASC",
+ "states": [],
+ "track_changes": 1
+}

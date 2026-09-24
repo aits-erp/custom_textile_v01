@@ -1,0 +1,121 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:fabric_material",
+ "creation": "2023-02-08 17:03:01.630993",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "fabric_material",
+  "abbreviation",
+  "customs_tariff_number_section",
+  "greige_fabric_tariff",
+  "ready_fabric_tariff",
+  "printed_fabric_tariff"
+ ],
+ "fields": [
+  {
+   "fieldname": "fabric_material",
+   "fieldtype": "Data",
+   "label": "Fabric Material",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "fieldname": "abbreviation",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Abbreviation"
+  },
+  {
+   "fieldname": "customs_tariff_number_section",
+   "fieldtype": "Section Break",
+   "label": "Customs Tariff Number"
+  },
+  {
+   "fieldname": "greige_fabric_tariff",
+   "fieldtype": "Table",
+   "label": "Greige Fabric Tariff Numbers",
+   "options": "Fabric Tariff Number"
+  },
+  {
+   "fieldname": "ready_fabric_tariff",
+   "fieldtype": "Table",
+   "label": "Ready Fabric Tariff Numbers",
+   "options": "Fabric Tariff Number"
+  },
+  {
+   "fieldname": "printed_fabric_tariff",
+   "fieldtype": "Table",
+   "label": "Printed Fabric Tariff Numbers",
+   "options": "Fabric Tariff Number"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "group": "Items",
+   "link_doctype": "Item",
+   "link_fieldname": "fabric_material"
+  }
+ ],
+ "modified": "2024-03-19 18:23:07.369635",
+ "modified_by": "Administrator",
+ "module": "Textile",
+ "name": "Fabric Material",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Item Manager",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Pretreatment Sales User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Print Sales User",
+   "share": 1
+  },
+  {
+   "role": "All",
+   "select": 1
+  }
+ ],
+ "quick_entry": 1,
+ "search_fields": "abbreviation",
+ "sort_field": "idx",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
