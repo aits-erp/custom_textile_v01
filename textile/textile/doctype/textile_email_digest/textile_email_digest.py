@@ -7,10 +7,10 @@ from frappe import _, STANDARD_USERS
 from frappe.utils import cint, cstr, getdate, now_datetime, add_days, validate_email_address
 from textile.fabric_printing.report.fabric_printing_summary.fabric_printing_summary import FabricPrintingSummary
 from textile.utils import get_rotated_image
-from frappe.core.doctype.notification_count.notification_count import (
-	get_notification_last_scheduled,
-	set_notification_last_scheduled,
-)
+# from frappe.core.doctype.notification_count.notification_count import (
+# 	get_notification_last_scheduled,
+# 	set_notification_last_scheduled,
+# )
 from urllib.parse import quote
 
 
@@ -137,33 +137,36 @@ class TextileEmailDigest(Document):
 		return valid_users
 
 
+# def send_textile_email_digest():
+# 	now_dt = now_datetime()
+# 	digest_doc = frappe.get_single("Textile Email Digest")
+
+# 	if not cint(digest_doc.enabled):
+# 		return
+# 	if not digest_doc.email_template:
+# 		return
+
+# 	if cint(digest_doc.send_at_hour_of_the_day) > now_dt.hour:
+# 		return
+
+# 	last_scheduled = get_notification_last_scheduled(
+# 		"Textile Email Digest",
+# 		"Textile Email Digest",
+# 		"Textile Email Digest",
+# 		"Email",
+# 	)
+# 	if last_scheduled and getdate(last_scheduled) >= now_dt.date():
+# 		return
+
+# 	digest_doc.send(is_background=True)
+
+# 	set_notification_last_scheduled(
+# 		"Textile Email Digest",
+# 		"Textile Email Digest",
+# 		"Textile Email Digest",
+# 		"Email",
+# 		now_dt=now_dt,
+# 	)
+
 def send_textile_email_digest():
-	now_dt = now_datetime()
-	digest_doc = frappe.get_single("Textile Email Digest")
-
-	if not cint(digest_doc.enabled):
-		return
-	if not digest_doc.email_template:
-		return
-
-	if cint(digest_doc.send_at_hour_of_the_day) > now_dt.hour:
-		return
-
-	last_scheduled = get_notification_last_scheduled(
-		"Textile Email Digest",
-		"Textile Email Digest",
-		"Textile Email Digest",
-		"Email",
-	)
-	if last_scheduled and getdate(last_scheduled) >= now_dt.date():
-		return
-
-	digest_doc.send(is_background=True)
-
-	set_notification_last_scheduled(
-		"Textile Email Digest",
-		"Textile Email Digest",
-		"Textile Email Digest",
-		"Email",
-		now_dt=now_dt,
-	)
+    pass
